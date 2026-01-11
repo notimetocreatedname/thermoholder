@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Thermoholder - Simple digital wireless thermometer for beginners</title>
+	<meta name="description" content="Thermoholder is a digital Wireless thermometer helping students, beginner researchers and hobbyists monitor temperature accurately with a simple user interface." />
+		<style>
+			:root{--bg:#0f1724;--card:#0b1220;--accent:#ff7a59;--muted:#9aa4b2;--glass:rgba(255,255,255,0.03)}
+			html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:#e6eef6;background:linear-gradient(180deg,#071028 0%, #0b1220 100%)}
+			.container{max-width:980px;margin:40px auto;padding:24px}
+			header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+			.brand{display:flex;align-items:center;gap:12px}
+			.logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#ffb199);display:flex;align-items:center;justify-content:center;color:#0b1220;font-weight:700;font-size:18px}
+			h1{margin:0;font-size:28px}
+			p.lead{color:var(--muted);margin:6px 0 18px}
+
+			.grid{display:grid;grid-template-columns:1fr 360px;gap:24px}
+			@media (max-width:860px){.grid{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}.container{margin:20px auto;padding:16px}}
+
+			.card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 6px 20px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+			.hero-cta{display:flex;gap:12px;align-items:center;margin-top:12px}
+			.btn{background:var(--accent);color:#071022;padding:10px 16px;border-radius:10px;font-weight:600;border:none;cursor:pointer}
+			.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+
+			.features{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
+			@media (max-width:560px){.features{grid-template-columns:1fr}}
+			.feature{background:var(--glass);padding:12px;border-radius:8px}
+			.feature h4{margin:0 0 6px}
+			.muted{color:var(--muted);font-size:14px}
+
+			/* Live widget */
+			.widget{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+			.temp{font-size:44px;font-weight:700}
+			.status{font-size:13px;color:var(--muted)}
+
+			footer{margin-top:28px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:10px}
+
+			.badge{display:inline-block;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted);font-weight:600;font-size:13px}
+
+			.specs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+			.specs dt{font-weight:700}
+			.specs dd{margin:4px 0 8px 12px;color:var(--muted)}
+			.faq{margin-top:14px}
+			.faq details{background:var(--glass);padding:10px;border-radius:8px;margin-bottom:8px}
+			.logo-img{width:160px;height:74px;border-radius:6px;object-fit:contain;display:block}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<header>
+							<div class="brand">
+							<img src="Logo.png" alt="Thermoholder logo" class="logo-img">
+							<div>
+								<h1>Thermoholder</h1>
+								<div class="muted">Simple digital Wireless thermometer for beginners</div>
+							</div>
+						</div>
+							<div style="display:flex;align-items:center;gap:10px">
+							<div class="badge">Accurate • Simple • Wireless</div>
+							<nav aria-label="Main navigation" style="display:flex;gap:8px">
+								<a class="btn ghost" href="#features">Features</a>
+								<a class="btn ghost" href="#why">Why us?</a>
+								<a class="btn ghost" href="#specs">Main specs</a>
+								<a class="btn ghost" href="#cta">Pricing</a>
+								<a class="btn ghost" href="#contact">Contact</a>
+							</nav>
+						</div>
+			</header>
+
+			<main class="grid" style="margin-top:22px">
+				<section>
+					<div class="card">
+						<h2>Simple temperature monitoring for students and hobby researchers</h2>
+						<p class="lead">Thermoholder is a digital wireless thermometer designed to help students, beginners in research and hobbyists monitor temperature accurately for experiments, coursework, and personal projects, with easy setup and use.</p>
+
+						<div class="hero-cta">
+							<!-- Try/Buy buttons removed per request -->
+						</div>
+
+						<div id="features" class="features" aria-hidden="false">
+											<div class="feature">
+												<h4>Wi-Fi connectivity</h4>
+												<div class="muted">Access temperature data from any device without complex configuration.</div>
+											</div>
+											<div class="feature">
+												<h4>Simple UI</h4>
+												<div class="muted">A clean, easy interface tailored for beginners.</div>
+											</div>
+											<div class="feature">
+												<h4>Accurate readings</h4>
+												<div class="muted">High-accuracy sensor suitable for classroom and hobby use.</div>
+											</div>
+											<div class="feature">
+												<h4>Fast setup</h4>
+												<div class="muted">From box to working in minutes.</div>
+											</div>
+											<div class="feature">
+												<h4>Eco-friendly</h4>
+												<div class="muted">Uses a rechargeable Li-Po battery to reduce disposable battery waste.</div>
+											</div>
+						</div>
+
+									<section id="why" class="card" style="margin-top:14px">
+										<h3>Why choose Thermoholder?</h3>
+										<ul class="muted" style="padding-left:18px">
+											<li>Optimized for learning-no special expertise required.</li>
+											<li>Good value for its feature set.</li>
+											<li>Friendly for students and hobbyists.</li>
+										</ul>
+									</section>
+
+									<!-- START FAQ (commented out)
+									<section class="faq" aria-label="Frequently Asked Questions">
+										<h3>FAQ</h3>
+										<details>
+											<summary>Housing & temperature sensor — maintenance</summary>
+											<div class="muted">
+													<p>The thermometer housing is 3D printed. Keep the device at normal room temperature so the plastic does not deform (avoid temperatures around ≈60&nbsp;°C). The temperature sensor is a small probe. The sensor probe has an operating range of -55&nbsp;°C to 125&nbsp;°C — use it only within this range. The sensor cable may soften at around ≈100&nbsp;°C; ideally only the probe tip (metal rod) should be inserted into the measured material.</p>
+													<div class="figure">
+														<img src="instruction_thermoholder/image2.jpeg" alt="Illustration 1 — temperature probe and housing" style="max-width:100%;height:auto;border-radius:8px;margin-top:8px">
+													</div>
+											</div>
+										</details>
+
+										<details>
+											<summary>Power on/off and charging</summary>
+											<div class="muted">
+													<p>To turn the thermometer on, press the button. The LED to the right of the button lights immediately; after a few seconds the LED to the left will start blinking and the display will turn on. The device is powered by a rechargeable lithium battery that charges via the Micro USB port. A red LED indicates charging. Charging can occur while the thermometer is in use. To turn the device off, press the button again.</p>
+													<div class="figure" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+														<img src="instruction_thermoholder/image3.jpeg" alt="Illustration 2 — power button and USB port" style="max-width:32%;height:auto;border-radius:6px">
+														<img src="instruction_thermoholder/image4.jpeg" alt="Illustration 3 — display turning on" style="max-width:32%;height:auto;border-radius:6px">
+														<img src="instruction_thermoholder/image5.jpeg" alt="Illustration 4 — charging LED" style="max-width:32%;height:auto;border-radius:6px">
+													</div>
+											</div>
+										</details>
+
+										<details>
+											<summary>Connecting to the web server</summary>
+											<div class="muted">
+													<p>After turning on, the display shows the current temperature and two lines of information: the Wi‑Fi network name (SSID) and password, and the device IP address. The thermometer creates a Wi‑Fi network named <strong>Thermoholder</strong> (the password is the same as the network name). Connect your computer or phone to that Wi‑Fi network. From any browser go to <code>http://192.168.4.1</code> to open the web interface. If the page looks incomplete, press Refresh in the browser.</p>
+													<div class="figure" style="margin-top:8px">
+														<img src="instruction_thermoholder/image6.png" alt="Illustration 5 — display showing SSID, password and IP" style="max-width:100%;height:auto;border-radius:8px">
+													</div>
+													<div class="figure" style="margin-top:8px">
+														<img src="instruction_thermoholder/image8.png" alt="Illustration 7 — web interface overview" style="max-width:100%;height:auto;border-radius:8px">
+													</div>
+											</div>
+										</details>
+
+										<details>
+											<summary>Web interface: what you'll see</summary>
+											<div class="muted">
+													<p>The web page displays the current temperature (labelled <em>Temperature</em>), the active recording name (<em>Recording</em>), a table with columns <em>Time</em> and <em>Temperature</em>, and a chart showing measurements over time.</p>
+													<div class="figure" style="margin-top:8px">
+														<img src="instruction_thermoholder/image10.png" alt="Illustration 9 — web interface chart and table" style="max-width:100%;height:auto;border-radius:8px">
+													</div>
+											</div>
+										</details>
+
+										<details>
+											<summary>Recording settings</summary>
+											<div class="muted">
+													<p><strong>Frequency</strong> — choose how often measurements are recorded for the selected recording. Note: the on‑screen display updates every second; Frequency affects table and chart entries only.</p>
+													<p><strong>Unit</strong> — select °C, °F, K or °R for the recording. Units can be changed only before the recording starts. The selected unit also affects the on‑screen display. After power cycle, the device uses the last chosen unit for the most recent recording.</p>
+													<p><strong>Min Y / Max Y</strong> — set the Y‑axis range for the chart and press <em>Set Y‑Axis</em> to apply.</p>
+													<div class="figure" style="margin-top:8px">
+														<img src="instruction_thermoholder/image11.png" alt="Illustration 10 — recording settings UI" style="max-width:100%;height:auto;border-radius:8px">
+													</div>
+											</div>
+										</details>
+
+										<details>
+											<summary>Recordings: start, pause, new, export</summary>
+											<div class="muted">
+													<p>The device creates an initial recording named <em>Recording 1</em>. To start logging measurements press <strong>Start</strong>; data points will be added according to the Frequency setting. To pause logging press <strong>Pause</strong>. Use <strong>New Recording</strong> to create additional recordings and <strong>Rename Recording</strong> to change a recording's name.</p>
+													<div class="figure" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+														<img src="instruction_thermoholder/image12.png" alt="Illustration 11 — starting a recording" style="max-width:48%;height:auto;border-radius:8px">
+														<img src="instruction_thermoholder/image13.png" alt="Illustration 12 — pausing a recording" style="max-width:48%;height:auto;border-radius:8px">
+													</div>
+													<p><strong>Export to CSV/Excel</strong> exports the currently selected recording to CSV format. Important: data is stored only in RAM on the device; when the thermometer is turned off or the page is refreshed, all data is lost. Export any data you want to keep before powering off or refreshing.</p>
+													<div class="figure" style="margin-top:8px">
+														<img src="instruction_thermoholder/image14.png" alt="Illustration 13 — export UI" style="max-width:100%;height:auto;border-radius:8px">
+													</div>
+													<div class="figure" style="margin-top:8px">
+														<img src="instruction_thermoholder/image15.png" alt="Illustration 14 — rename/new recording" style="max-width:100%;height:auto;border-radius:8px">
+													</div>
+											</div>
+										</details>
+
+										<details>
+											<summary>Comparing recordings</summary>
+											<div class="muted">
+												<p>To compare multiple recordings, check the boxes next to the recordings under <em>Select recordings</em>. Only recordings using the same temperature unit can be compared. Press <strong>Compare Selected Recordings</strong> to view the combined chart. While comparison is active, exit with <strong>ExitComparison</strong> to return to normal view.</p>
+											</div>
+										</details>
+
+										<details>
+											<summary>Safety & battery notes</summary>
+											<div class="muted">
+												<p>Thermoholder uses a rechargeable Li‑Po battery. Follow standard Li‑Po safety guidance: do not expose the battery to high temperatures; avoid short circuits and mechanical damage; use the provided charging method and a compatible charger; if the battery is swollen or damaged, stop using the device.</p>
+											</div>
+										</details>
+									</section>
+									END FAQ (commented out) -->
+					</div>
+				</section>
+
+				<aside>
+					<div id="specs" class="card widget" role="region" aria-label="Main specifications">
+						<div style="display:flex;align-items:center;justify-content:space-between;width:100%">
+							<div>
+												<div style="font-weight:700">Main specs</div>
+												<div class="muted">Key technical specifications and features</div>
+							</div>
+						</div>
+
+						<div style="height:14px"></div>
+
+						<dl class="specs" style="margin-top:12px;text-align:left;color:var(--muted)">
+							<div>
+								<dt>Range</dt>
+								<dd>-40 - 125 °C</dd>
+							</div>
+							<div>
+								<dt>Accuracy</dt>
+								<dd>±0.5 °C</dd>
+							</div>
+							<div>
+								<dt>Connectivity</dt>
+								<dd>Wi-Fi</dd>
+							</div>
+							<div>
+								<dt>Power / Charging</dt>
+								<dd>Micro USB (charges Li-Po battery)</dd>
+							</div>
+						</dl>
+					</div>
+
+					<div class="card" style="margin-top:12px">
+						<h4 id="cta">Pricing</h4>
+						<p class="muted">Student-friendly pricing.</p>
+						<div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+							<div>
+								<div style="font-size:18px;font-weight:700">50€</div>
+								<div class="muted">one-time payment</div>
+							</div>
+							<div>
+								<!-- Buy button removed per request -->
+							</div>
+						</div>
+					</div>
+				</aside>
+			</main>
+
+			<footer id="contact">
+				<div>© <strong>Thermoholder</strong> 2026 • Designed for beginners and students</div>
+				<div class="muted">Contact: <a href="mailto:smuplaceholder@gmail.com" style="color:inherit">smuplaceholder@gmail.com</a> • <a href="https://www.instagram.com/smuthermoholder/" target="_blank" rel="noopener" style="color:inherit">Instagram</a></div>
+			</footer>
+		</div>
+
+		<!-- Removed Try/Buy/Demo button handlers as the controls were removed -->
+	</body>
+</html>
