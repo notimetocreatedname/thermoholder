@@ -1,418 +1,236 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Thermoholder - Simple digital wireless thermometer for beginners</title>
-		<link rel="icon" href="favicon.png" type="image/png">
-		<meta name="description" content="Thermoholder is a digital Wireless thermometer helping students, beginner researchers and hobbyists monitor temperature accurately with a simple user interface." />
-		<style>
-			:root {
-				--bg: #f4f5f7;
-				--card: #ffffff;
-				--primary: #4f6bed;
-				--primary-light: #e8ecfd;
-				--muted: #64748b;
-				--foreground: #1e293b;
-				--border: #e2e8f0;
-				--secondary: #f1f5f9;
-				--thermo-blue: #4f6bed;
-				--thermo-blue-light: #e8ecfd;
-				--thermo-pink: #ec4899;
-				--thermo-pink-light: #fce7f3;
-				--thermo-green: #22c55e;
-				--thermo-green-light: #dcfce7;
-				--thermo-orange: #f97316;
-				--thermo-orange-light: #ffedd5;
-				--thermo-purple: #a855f7;
-				--thermo-purple-light: #f3e8ff;
-			}
-			html, body {
-				height: 100%;
-				margin: 0;
-				font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-				color: var(--foreground);
-				background: var(--bg);
-			}
-			.container {
-				max-width: 1024px;
-				margin: 0 auto;
-				padding: 24px 16px;
-			}
-			header {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				gap: 16px;
-				margin-bottom: 24px;
-			}
-			.brand {
-				display: flex;
-				align-items: center;
-				gap: 12px;
-			}
-			.logo-img {
-				width: 64px;
-				height: 64px;
-				object-fit: contain;
-			}
-			h1 {
-				margin: 0;
-				font-size: 24px;
-				font-weight: 700;
-				color: var(--foreground);
-			}
-			.subtitle {
-				color: var(--muted);
-				font-size: 14px;
-				margin: 2px 0 0;
-			}
-			.badge {
-				display: inline-block;
-				padding: 6px 12px;
-				border-radius: 999px;
-				background: var(--secondary);
-				color: var(--muted);
-				font-weight: 500;
-				font-size: 14px;
-			}
-			nav {
-				display: flex;
-				gap: 8px;
-				flex-wrap: wrap;
-			}
-			.nav-link {
-				padding: 8px 12px;
-				border-radius: 8px;
-				border: 1px solid var(--border);
-				color: var(--muted);
-				font-size: 14px;
-				text-decoration: none;
-				transition: background 0.2s;
-				display: flex;
-				align-items: center;
-				gap: 6px;
-			}
-			.nav-link:hover {
-				background: var(--secondary);
-			}
-			.grid {
-				display: grid;
-				grid-template-columns: 1fr 320px;
-				gap: 20px;
-				align-items: start;
-			}
-			@media (max-width: 860px) {
-				.grid { grid-template-columns: 1fr; }
-				header { flex-direction: column; align-items: flex-start; }
-			}
-			.card {
-				background: var(--card);
-				border-radius: 12px;
-				padding: 20px;
-				box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-				border: 1px solid var(--border);
-			}
-			.card + .card {
-				margin-top: 20px;
-			}
-			.sidebar .card + .card {
-				margin-top: 16px;
-			}
-			h2 {
-				margin: 0 0 8px;
-				font-size: 20px;
-				font-weight: 700;
-			}
-			h3 {
-				margin: 0 0 8px;
-				font-size: 18px;
-				font-weight: 700;
-			}
-			h4 {
-				margin: 0;
-				font-size: 14px;
-				font-weight: 700;
-			}
-			.lead {
-				color: var(--muted);
-				line-height: 1.6;
-				margin: 0 0 16px;
-			}
-			.product-img {
-				display: block;
-				max-width: 280px;
-				width: 100%;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-			}
-			.why-list {
-				color: var(--muted);
-				padding-left: 20px;
-				margin: 0;
-				font-size: 14px;
-			}
-			.why-list li {
-				margin-bottom: 6px;
-			}
-			.specs-grid {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: 12px;
-				font-size: 14px;
-			}
-			.specs-grid dt {
-				font-weight: 600;
-				color: var(--foreground);
-				margin: 0;
-			}
-			.specs-grid dd {
-				color: var(--muted);
-				margin: 2px 0 0;
-				font-size: 12px;
-			}
-			.pricing-label {
-				font-size: 12px;
-				color: var(--muted);
-				margin: 4px 0 8px;
-			}
-			.price {
-				font-size: 20px;
-				font-weight: 700;
-				color: var(--foreground);
-			}
-			.price-note {
-				font-size: 12px;
-				color: var(--muted);
-				margin-left: 8px;
-			}
-			.features-title {
-				font-size: 14px;
-				font-weight: 700;
-				margin-bottom: 12px;
-				color: var(--foreground);
-			}
-			.feature {
-				background: var(--secondary);
-				padding: 10px;
-				border-radius: 8px;
-				display: flex;
-				align-items: flex-start;
-				gap: 10px;
-				margin-bottom: 10px;
-			}
-			.feature:last-child {
-				margin-bottom: 0;
-			}
-			.feature-icon {
-				width: 32px;
-				height: 32px;
-				border-radius: 8px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				flex-shrink: 0;
-			}
-			.feature-icon svg {
-				width: 16px;
-				height: 16px;
-			}
-			.feature-icon.blue { background: var(--thermo-blue-light); color: var(--thermo-blue); }
-			.feature-icon.pink { background: var(--thermo-pink-light); color: var(--thermo-pink); }
-			.feature-icon.green { background: var(--thermo-green-light); color: var(--thermo-green); }
-			.feature-icon.orange { background: var(--thermo-orange-light); color: var(--thermo-orange); }
-			.feature-icon.purple { background: var(--thermo-purple-light); color: var(--thermo-purple); }
-			.feature-content h4 {
-				font-size: 14px;
-				font-weight: 600;
-				margin-bottom: 2px;
-			}
-			.feature-content p {
-				font-size: 12px;
-				color: var(--muted);
-				margin: 0;
-				line-height: 1.4;
-			}
-			footer {
-				margin-top: 24px;
-				padding-top: 20px;
-				border-top: 1px solid var(--border);
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				gap: 16px;
-				font-size: 14px;
-				color: var(--muted);
-				flex-wrap: wrap;
-			}
-			footer a {
-				color: inherit;
-				text-decoration: none;
-				display: flex;
-				align-items: center;
-				gap: 6px;
-				transition: color 0.2s;
-			}
-			footer a:hover {
-				color: var(--foreground);
-			}
-			.footer-links {
-				display: flex;
-				align-items: center;
-				gap: 16px;
-			}
-			.header-right {
-				display: flex;
-				align-items: center;
-				gap: 10px;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container">
-			<header>
-				<div class="brand">
-					<img src="favicon.png" alt="Thermoholder logo" class="logo-img">
-					<div>
-						<h1>Thermoholder</h1>
-						<p class="subtitle">Simple digital Wireless thermometer for beginners</p>
-					</div>
-				</div>
-				<div class="header-right">
-					<span class="badge">Accurate Simple Wireless</span>
-					<nav>
-						<a class="nav-link" href="#features">Features</a>
-						<a class="nav-link" href="#why">Why us?</a>
-						<a class="nav-link" href="#specs">Specs</a>
-						<a class="nav-link" href="#pricing">Pricing</a>
-						<a class="nav-link" href="#contact">Contact</a>
-						<a class="nav-link" href="thermoholder%20instrukcija.pdf" target="_blank" rel="noopener">
-							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-							Instruction
-						</a>
-					</nav>
-				</div>
-			</header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thermoholder - Simple Digital Wireless Thermometer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+        
+        /* Header */
+        header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 24px; }
+        .logo-section { display: flex; align-items: center; gap: 12px; }
+        .logo-section img { width: 64px; height: 64px; object-fit: contain; }
+        .logo-section h1 { font-size: 24px; font-weight: 700; }
+        .logo-section p { font-size: 14px; color: #64748b; }
+        .nav-section { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .badge { padding: 6px 12px; background: #e2e8f0; border-radius: 20px; font-size: 14px; color: #64748b; }
+        nav { display: flex; gap: 8px; flex-wrap: wrap; }
+        nav a { padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #64748b; font-size: 14px; transition: background 0.2s; }
+        nav a:hover { background: #e2e8f0; }
+        
+        /* Main Grid */
+        main { display: grid; grid-template-columns: 1fr 300px; gap: 20px; align-items: start; }
+        @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+        
+        /* Cards */
+        .card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid #e2e8f0; }
+        .card-sm { padding: 16px; }
+        
+        /* Left Column */
+        .left-col { display: flex; flex-direction: column; gap: 16px; }
+        .hero h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .hero p { color: #64748b; }
+        
+        /* Features + Image Row */
+        .features-image-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        @media (max-width: 600px) { .features-image-row { grid-template-columns: 1fr; } }
+        
+        .features-list { display: flex; flex-direction: column; gap: 8px; }
+        .features-list h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+        
+        .feature-card { background: #f1f5f9; border-radius: 8px; padding: 10px; display: flex; gap: 10px; }
+        .feature-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .feature-icon.blue { background: #dbeafe; color: #3b82f6; }
+        .feature-icon.pink { background: #fce7f3; color: #ec4899; }
+        .feature-icon.green { background: #dcfce7; color: #22c55e; }
+        .feature-icon.orange { background: #ffedd5; color: #f97316; }
+        .feature-icon.purple { background: #f3e8ff; color: #a855f7; }
+        .feature-card h5 { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+        .feature-card p { font-size: 11px; color: #64748b; }
+        
+        .product-image { display: flex; align-items: center; justify-content: center; }
+        .product-image img { width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        
+        /* Why Choose */
+        .why h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+        .why ul { padding-left: 20px; color: #64748b; font-size: 14px; }
+        .why li { margin-bottom: 4px; }
+        
+        /* Sidebar */
+        .sidebar { display: flex; flex-direction: column; gap: 16px; }
+        .specs h4 { font-weight: 700; margin-bottom: 4px; }
+        .specs .subtitle { font-size: 12px; color: #64748b; margin-bottom: 12px; }
+        .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .spec-item dt { font-size: 14px; font-weight: 600; }
+        .spec-item dd { font-size: 12px; color: #64748b; margin-top: 2px; }
+        
+        .pricing h4 { font-size: 14px; font-weight: 700; }
+        .pricing .subtitle { font-size: 12px; color: #64748b; margin-bottom: 8px; }
+        .price { font-size: 24px; font-weight: 700; }
+        .price span { font-size: 12px; color: #64748b; font-weight: 400; margin-left: 8px; }
+        
+        /* Footer */
+        footer { margin-top: 24px; padding-top: 20px; border-top: 1px solid #e2e8f0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 14px; color: #64748b; }
+        footer strong { color: #1e293b; }
+        .footer-links { display: flex; gap: 16px; }
+        .footer-links a { display: flex; align-items: center; gap: 6px; color: #64748b; text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: #1e293b; }
+        
+        /* SVG Icons inline */
+        .icon { width: 16px; height: 16px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo-section">
+                <img src="logo.png" alt="Thermoholder logo">
+                <div>
+                    <h1>Thermoholder</h1>
+                    <p>Simple digital Wireless thermometer for beginners</p>
+                </div>
+            </div>
+            <div class="nav-section">
+                <span class="badge">Accurate Simple Wireless</span>
+                <nav>
+                    <a href="#features">Features</a>
+                    <a href="#why">Why us?</a>
+                    <a href="#specs">Specs</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#contact">Contact</a>
+                    <a href="thermoholder instrukcija.pdf" target="_blank">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        Instruction
+                    </a>
+                </nav>
+            </div>
+        </header>
 
-			<main class="grid">
-				<section>
-					<div class="card">
-						<h2>Simple temperature monitoring for students and hobby researchers</h2>
-						<p class="lead">Thermoholder is a digital wireless thermometer designed to help students, beginners in research and hobbyists monitor temperature accurately for experiments, coursework, and personal projects, with easy setup and use.</p>
-						<img src="corpus.jpg" alt="Thermoholder device - digital wireless thermometer" class="product-img">
-					</div>
+        <!-- Main Content -->
+        <main>
+            <!-- Left Column -->
+            <div class="left-col">
+                <!-- Hero -->
+                <div class="card hero">
+                    <h2>Simple temperature monitoring for students and hobby researchers</h2>
+                    <p>Thermoholder is a digital wireless thermometer designed to help students, beginners in research and hobbyists monitor temperature accurately for experiments, coursework, and personal projects, with easy setup and use.</p>
+                </div>
 
-					<div id="why" class="card">
-						<h3>Why choose Thermoholder?</h3>
-						<ul class="why-list">
-							<li>Optimized for learning — no special expertise required.</li>
-							<li>Good value for its feature set.</li>
-							<li>Friendly for students and hobbyists.</li>
-						</ul>
-					</div>
-				</section>
+                <!-- Features + Image Row -->
+                <div class="features-image-row">
+                    <!-- Features -->
+                    <div id="features" class="card card-sm features-list">
+                        <h4>Features</h4>
+                        <div class="feature-card">
+                            <div class="feature-icon blue">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.14 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/></svg>
+                            </div>
+                            <div>
+                                <h5>Wi-Fi connectivity</h5>
+                                <p>Access data from any device.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon pink">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke-width="2"/></svg>
+                            </div>
+                            <div>
+                                <h5>Simple UI</h5>
+                                <p>Clean interface for beginners.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon green">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <div>
+                                <h5>Accurate readings</h5>
+                                <p>High-accuracy sensor.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon orange">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            </div>
+                            <div>
+                                <h5>Fast setup</h5>
+                                <p>Working in minutes.</p>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon purple">
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                            </div>
+                            <div>
+                                <h5>Eco-friendly</h5>
+                                <p>Rechargeable Li-Po battery.</p>
+                            </div>
+                        </div>
+                    </div>
 
-				<aside class="sidebar">
-					<div id="specs" class="card">
-						<h4>Main specs</h4>
-						<p style="font-size:12px;color:var(--muted);margin:4px 0 12px;">Key technical specifications</p>
-						<dl class="specs-grid">
-							<div>
-								<dt>Range</dt>
-								<dd>-55 - 125 °C</dd>
-							</div>
-							<div>
-								<dt>Accuracy</dt>
-								<dd>±0.5 °C</dd>
-							</div>
-							<div>
-								<dt>Connectivity</dt>
-								<dd>Wi-Fi</dd>
-							</div>
-							<div>
-								<dt>Power</dt>
-								<dd>Micro USB (Li-Po)</dd>
-							</div>
-						</dl>
-					</div>
+                    <!-- Product Image -->
+                    <div class="card card-sm product-image">
+                        <img src="corpus.jpg" alt="Thermoholder device">
+                    </div>
+                </div>
 
-					<div id="pricing" class="card">
-						<h4>Pricing</h4>
-						<p class="pricing-label">Student-friendly pricing.</p>
-						<span class="price">50€</span>
-						<span class="price-note">one-time payment</span>
-					</div>
+                <!-- Why Choose -->
+                <div id="why" class="card card-sm why">
+                    <h3>Why choose Thermoholder?</h3>
+                    <ul>
+                        <li>Optimized for learning — no special expertise required.</li>
+                        <li>Good value for its feature set.</li>
+                        <li>Friendly for students and hobbyists.</li>
+                    </ul>
+                </div>
+            </div>
 
-					<div id="features" class="card">
-						<div class="features-title">Features</div>
-						
-						<div class="feature">
-							<div class="feature-icon blue">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/></svg>
-							</div>
-							<div class="feature-content">
-								<h4>Wi-Fi connectivity</h4>
-								<p>Access temperature data from any device without complex configuration.</p>
-							</div>
-						</div>
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Specs -->
+                <div id="specs" class="card card-sm specs">
+                    <h4>Main specs</h4>
+                    <div class="subtitle">Key technical specifications</div>
+                    <dl class="specs-grid">
+                        <div class="spec-item"><dt>Range</dt><dd>-55 - 125 °C</dd></div>
+                        <div class="spec-item"><dt>Accuracy</dt><dd>±0.5 °C</dd></div>
+                        <div class="spec-item"><dt>Connectivity</dt><dd>Wi-Fi</dd></div>
+                        <div class="spec-item"><dt>Power</dt><dd>Micro USB (Li-Po)</dd></div>
+                    </dl>
+                </div>
 
-						<div class="feature">
-							<div class="feature-icon pink">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-							</div>
-							<div class="feature-content">
-								<h4>Simple UI</h4>
-								<p>A clean, easy interface tailored for beginners.</p>
-							</div>
-						</div>
+                <!-- Pricing -->
+                <div id="pricing" class="card card-sm pricing">
+                    <h4>Pricing</h4>
+                    <div class="subtitle">Student-friendly pricing.</div>
+                    <div class="price">50€<span>one-time payment</span></div>
+                </div>
+            </aside>
+        </main>
 
-						<div class="feature">
-							<div class="feature-icon green">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg>
-							</div>
-							<div class="feature-content">
-								<h4>Accurate readings</h4>
-								<p>High-accuracy sensor suitable for classroom and hobby use.</p>
-							</div>
-						</div>
-
-						<div class="feature">
-							<div class="feature-icon orange">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
-							</div>
-							<div class="feature-content">
-								<h4>Fast setup</h4>
-								<p>From box to working in minutes.</p>
-							</div>
-						</div>
-
-						<div class="feature">
-							<div class="feature-icon purple">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
-							</div>
-							<div class="feature-content">
-								<h4>Eco-friendly</h4>
-								<p>Uses a rechargeable Li-Po battery to reduce disposable battery waste.</p>
-							</div>
-						</div>
-					</div>
-				</aside>
-			</main>
-
-			<footer id="contact">
-				<div>© <strong style="color:var(--foreground)">Thermoholder</strong> 2026 • Designed for beginners and students</div>
-				<div class="footer-links">
-					<a href="mailto:smuplaceholder@gmail.com">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-						smuplaceholder@gmail.com
-					</a>
-					<a href="https://www.instagram.com/smuthermoholder/" target="_blank" rel="noopener">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-						Instagram
-					</a>
-				</div>
-			</footer>
-		</div>
-	</body>
+        <!-- Footer -->
+        <footer id="contact">
+            <div>© <strong>Thermoholder</strong> 2026 • Designed for beginners and students</div>
+            <div class="footer-links">
+                <a href="mailto:smuplaceholder@gmail.com">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    smuplaceholder@gmail.com
+                </a>
+                <a href="https://www.instagram.com/smuthermoholder/" target="_blank">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke-width="2"/><circle cx="18" cy="6" r="1.5" fill="currentColor"/></svg>
+                    Instagram
+                </a>
+            </div>
+        </footer>
+    </div>
+</body>
 </html>
