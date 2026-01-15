@@ -3,226 +3,324 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Thermoholder - Simple digital wireless thermometer for beginners</title>
-	<link rel="icon" href="favicon.png" type="image/x-icon">
-	<meta name="description" content="Thermoholder is a digital Wireless thermometer helping students, beginner researchers and hobbyists monitor temperature accurately with a simple user interface." />
+		<title>Thermoholder - Simple digital wireless thermometer for beginners</title>
+		<link rel="icon" href="favicon.png" type="image/png">
+		<meta name="description" content="Thermoholder is a digital Wireless thermometer helping students, beginner researchers and hobbyists monitor temperature accurately with a simple user interface." />
 		<style>
-			:root{--bg:#0f1724;--card:#0b1220;--accent:#ff7a59;--muted:#9aa4b2;--glass:rgba(255,255,255,0.03)}
-			html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:#e6eef6;background:linear-gradient(180deg,#071028 0%, #0b1220 100%)}
-			.container{max-width:980px;margin:40px auto;padding:24px}
-			header{display:flex;align-items:center;justify-content:space-between;gap:16px}
-			.brand{display:flex;align-items:center;gap:12px}
-			.logo{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#ffb199);display:flex;align-items:center;justify-content:center;color:#0b1220;font-weight:700;font-size:18px}
-			h1{margin:0;font-size:28px}
-			p.lead{color:var(--muted);margin:6px 0 18px}
-
-			.grid{display:grid;grid-template-columns:1fr 360px;gap:24px}
-			@media (max-width:860px){.grid{grid-template-columns:1fr}header{flex-direction:column;align-items:flex-start}.container{margin:20px auto;padding:16px}}
-
-			.card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 6px 20px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
-			.hero-cta{display:flex;gap:12px;align-items:center;margin-top:12px}
-			.btn{background:var(--accent);color:#071022;padding:10px 16px;border-radius:10px;font-weight:600;border:none;cursor:pointer}
-			.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-
-			.features{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:14px}
-			@media (max-width:560px){.features{grid-template-columns:1fr}}
-			.feature{background:var(--glass);padding:12px;border-radius:8px}
-			.feature h4{margin:0 0 6px}
-			.muted{color:var(--muted);font-size:14px}
-
-			.widget{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
-			.temp{font-size:44px;font-weight:700}
-			.status{font-size:13px;color:var(--muted)}
-
-			footer{margin-top:28px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:10px}
-
-			.badge{display:inline-block;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted);font-weight:600;font-size:13px}
-
-			.specs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-			.specs dt{font-weight:700}
-			.specs dd{margin:4px 0 8px 12px;color:var(--muted)}
-			.faq{margin-top:14px}
-			.faq details{background:var(--glass);padding:10px;border-radius:8px;margin-bottom:8px}
-			.logo-img{width:160px;height:74px;border-radius:6px;object-fit:contain;display:block}
+			:root {
+				--bg: #f4f5f7;
+				--card: #ffffff;
+				--primary: #4f6bed;
+				--primary-light: #e8ecfd;
+				--muted: #64748b;
+				--foreground: #1e293b;
+				--border: #e2e8f0;
+				--secondary: #f1f5f9;
+				--thermo-blue: #4f6bed;
+				--thermo-blue-light: #e8ecfd;
+				--thermo-pink: #ec4899;
+				--thermo-pink-light: #fce7f3;
+				--thermo-green: #22c55e;
+				--thermo-green-light: #dcfce7;
+				--thermo-orange: #f97316;
+				--thermo-orange-light: #ffedd5;
+				--thermo-purple: #a855f7;
+				--thermo-purple-light: #f3e8ff;
+			}
+			html, body {
+				height: 100%;
+				margin: 0;
+				font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+				color: var(--foreground);
+				background: var(--bg);
+			}
+			.container {
+				max-width: 1024px;
+				margin: 0 auto;
+				padding: 24px 16px;
+			}
+			header {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 16px;
+				margin-bottom: 24px;
+			}
+			.brand {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+			}
+			.logo-img {
+				width: 64px;
+				height: 64px;
+				object-fit: contain;
+			}
+			h1 {
+				margin: 0;
+				font-size: 24px;
+				font-weight: 700;
+				color: var(--foreground);
+			}
+			.subtitle {
+				color: var(--muted);
+				font-size: 14px;
+				margin: 2px 0 0;
+			}
+			.badge {
+				display: inline-block;
+				padding: 6px 12px;
+				border-radius: 999px;
+				background: var(--secondary);
+				color: var(--muted);
+				font-weight: 500;
+				font-size: 14px;
+			}
+			nav {
+				display: flex;
+				gap: 8px;
+				flex-wrap: wrap;
+			}
+			.nav-link {
+				padding: 8px 12px;
+				border-radius: 8px;
+				border: 1px solid var(--border);
+				color: var(--muted);
+				font-size: 14px;
+				text-decoration: none;
+				transition: background 0.2s;
+				display: flex;
+				align-items: center;
+				gap: 6px;
+			}
+			.nav-link:hover {
+				background: var(--secondary);
+			}
+			.grid {
+				display: grid;
+				grid-template-columns: 1fr 320px;
+				gap: 20px;
+				align-items: start;
+			}
+			@media (max-width: 860px) {
+				.grid { grid-template-columns: 1fr; }
+				header { flex-direction: column; align-items: flex-start; }
+			}
+			.card {
+				background: var(--card);
+				border-radius: 12px;
+				padding: 20px;
+				box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+				border: 1px solid var(--border);
+			}
+			.card + .card {
+				margin-top: 20px;
+			}
+			.sidebar .card + .card {
+				margin-top: 16px;
+			}
+			h2 {
+				margin: 0 0 8px;
+				font-size: 20px;
+				font-weight: 700;
+			}
+			h3 {
+				margin: 0 0 8px;
+				font-size: 18px;
+				font-weight: 700;
+			}
+			h4 {
+				margin: 0;
+				font-size: 14px;
+				font-weight: 700;
+			}
+			.lead {
+				color: var(--muted);
+				line-height: 1.6;
+				margin: 0 0 16px;
+			}
+			.product-img {
+				display: block;
+				max-width: 280px;
+				width: 100%;
+				margin: 0 auto;
+				border-radius: 12px;
+				box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+			}
+			.why-list {
+				color: var(--muted);
+				padding-left: 20px;
+				margin: 0;
+				font-size: 14px;
+			}
+			.why-list li {
+				margin-bottom: 6px;
+			}
+			.specs-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 12px;
+				font-size: 14px;
+			}
+			.specs-grid dt {
+				font-weight: 600;
+				color: var(--foreground);
+				margin: 0;
+			}
+			.specs-grid dd {
+				color: var(--muted);
+				margin: 2px 0 0;
+				font-size: 12px;
+			}
+			.pricing-label {
+				font-size: 12px;
+				color: var(--muted);
+				margin: 4px 0 8px;
+			}
+			.price {
+				font-size: 20px;
+				font-weight: 700;
+				color: var(--foreground);
+			}
+			.price-note {
+				font-size: 12px;
+				color: var(--muted);
+				margin-left: 8px;
+			}
+			.features-title {
+				font-size: 14px;
+				font-weight: 700;
+				margin-bottom: 12px;
+				color: var(--foreground);
+			}
+			.feature {
+				background: var(--secondary);
+				padding: 10px;
+				border-radius: 8px;
+				display: flex;
+				align-items: flex-start;
+				gap: 10px;
+				margin-bottom: 10px;
+			}
+			.feature:last-child {
+				margin-bottom: 0;
+			}
+			.feature-icon {
+				width: 32px;
+				height: 32px;
+				border-radius: 8px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-shrink: 0;
+			}
+			.feature-icon svg {
+				width: 16px;
+				height: 16px;
+			}
+			.feature-icon.blue { background: var(--thermo-blue-light); color: var(--thermo-blue); }
+			.feature-icon.pink { background: var(--thermo-pink-light); color: var(--thermo-pink); }
+			.feature-icon.green { background: var(--thermo-green-light); color: var(--thermo-green); }
+			.feature-icon.orange { background: var(--thermo-orange-light); color: var(--thermo-orange); }
+			.feature-icon.purple { background: var(--thermo-purple-light); color: var(--thermo-purple); }
+			.feature-content h4 {
+				font-size: 14px;
+				font-weight: 600;
+				margin-bottom: 2px;
+			}
+			.feature-content p {
+				font-size: 12px;
+				color: var(--muted);
+				margin: 0;
+				line-height: 1.4;
+			}
+			footer {
+				margin-top: 24px;
+				padding-top: 20px;
+				border-top: 1px solid var(--border);
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 16px;
+				font-size: 14px;
+				color: var(--muted);
+				flex-wrap: wrap;
+			}
+			footer a {
+				color: inherit;
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				transition: color 0.2s;
+			}
+			footer a:hover {
+				color: var(--foreground);
+			}
+			.footer-links {
+				display: flex;
+				align-items: center;
+				gap: 16px;
+			}
+			.header-right {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="container">
 			<header>
-							<div class="brand">
-							<img src="logo.png" alt="Thermoholder logo" class="logo-img">
-							<div>
-								<h1>Thermoholder</h1>
-								<div class="muted">Simple digital Wireless thermometer for beginners</div>
-							</div>
-						</div>
-							<div style="display:flex;align-items:center;gap:10px">
-							<div class="badge">Accurate Simple Wireless</div>
-							<nav aria-label="Main navigation" style="display:flex;gap:8px">
-								<a class="btn ghost" href="#features">Features</a>
-								<a class="btn ghost" href="#why">Why us?</a>
-								<a class="btn ghost" href="#specs">Main specs</a>
-								<a class="btn ghost" href="#cta">Pricing</a>
-								<a class="btn ghost" href="#contact">Contact</a>
-								<!-- PDF instruction link -->
-								<a class="btn ghost" href="thermoholder%20instrukcija.pdf" target="_blank" rel="noopener">Instruction</a>
-							</nav>
-						</div>
+				<div class="brand">
+					<img src="logo.png" alt="Thermoholder logo" class="logo-img">
+					<div>
+						<h1>Thermoholder</h1>
+						<p class="subtitle">Simple digital Wireless thermometer for beginners</p>
+					</div>
+				</div>
+				<div class="header-right">
+					<span class="badge">Accurate Simple Wireless</span>
+					<nav>
+						<a class="nav-link" href="#features">Features</a>
+						<a class="nav-link" href="#why">Why us?</a>
+						<a class="nav-link" href="#specs">Specs</a>
+						<a class="nav-link" href="#pricing">Pricing</a>
+						<a class="nav-link" href="#contact">Contact</a>
+						<a class="nav-link" href="thermoholder%20instrukcija.pdf" target="_blank" rel="noopener">
+							<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+							Instruction
+						</a>
+					</nav>
+				</div>
 			</header>
 
-			<main class="grid" style="margin-top:22px">
+			<main class="grid">
 				<section>
 					<div class="card">
 						<h2>Simple temperature monitoring for students and hobby researchers</h2>
 						<p class="lead">Thermoholder is a digital wireless thermometer designed to help students, beginners in research and hobbyists monitor temperature accurately for experiments, coursework, and personal projects, with easy setup and use.</p>
+						<img src="corpus.jpg" alt="Thermoholder device - digital wireless thermometer" class="product-img">
+					</div>
 
-						<div class="hero-cta">
-							<!-- Try/Buy buttons removed per request -->
-						</div>
-
-						<div id="features" class="features" aria-hidden="false">
-											<div class="feature">
-												<h4>Wi-Fi connectivity</h4>
-												<div class="muted">Access temperature data from any device without complex configuration.</div>
-											</div>
-											<div class="feature">
-												<h4>Simple UI</h4>
-												<div class="muted">A clean, easy interface tailored for beginners.</div>
-											</div>
-											<div class="feature">
-												<h4>Accurate readings</h4>
-												<div class="muted">High-accuracy sensor suitable for classroom and hobby use.</div>
-											</div>
-											<div class="feature">
-												<h4>Fast setup</h4>
-												<div class="muted">From box to working in minutes.</div>
-											</div>
-											<div class="feature">
-												<h4>Eco-friendly</h4>
-												<div class="muted">Uses a rechargeable Li-Po battery to reduce disposable battery waste.</div>
-											</div>
-						</div>
-
-									<section id="why" class="card" style="margin-top:14px">
-										<h3>Why choose Thermoholder?</h3>
-										<ul class="muted" style="padding-left:18px">
-											<li>Optimized for learning-no special expertise required.</li>
-											<li>Good value for its feature set.</li>
-											<li>Friendly for students and hobbyists.</li>
-										</ul>
-									</section>
-
-									<!-- START FAQ (commented out)
-									<section class="faq" aria-label="Frequently Asked Questions">
-										<h3>FAQ</h3>
-										<details>
-											<summary>Housing & temperature sensor — maintenance</summary>
-											<div class="muted">
-													<p>The thermometer housing is 3D printed. Keep the device at normal room temperature so the plastic does not deform (avoid temperatures around ≈60&nbsp;°C). The temperature sensor is a small probe. The sensor probe has an operating range of -55&nbsp;°C to 125&nbsp;°C — use it only within this range. The sensor cable may soften at around ≈100&nbsp;°C; ideally only the probe tip (metal rod) should be inserted into the measured material.</p>
-													<div class="figure">
-														<img src="instruction_thermoholder/image2.jpeg" alt="Illustration 1 — temperature probe and housing" style="max-width:100%;height:auto;border-radius:8px;margin-top:8px">
-													</div>
-											</div>
-										</details>
-
-										<details>
-											<summary>Power on/off and charging</summary>
-											<div class="muted">
-													<p>To turn the thermometer on, press the button. The LED to the right of the button lights immediately; after a few seconds the LED to the left will start blinking and the display will turn on. The device is powered by a rechargeable lithium battery that charges via the Micro USB port. A red LED indicates charging. Charging can occur while the thermometer is in use. To turn the device off, press the button again.</p>
-													<div class="figure" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-														<img src="instruction_thermoholder/image3.jpeg" alt="Illustration 2 — power button and USB port" style="max-width:32%;height:auto;border-radius:6px">
-														<img src="instruction_thermoholder/image4.jpeg" alt="Illustration 3 — display turning on" style="max-width:32%;height:auto;border-radius:6px">
-														<img src="instruction_thermoholder/image5.jpeg" alt="Illustration 4 — charging LED" style="max-width:32%;height:auto;border-radius:6px">
-													</div>
-											</div>
-										</details>
-
-										<details>
-											<summary>Connecting to the web server</summary>
-											<div class="muted">
-													<p>After turning on, the display shows the current temperature and two lines of information: the Wi‑Fi network name (SSID) and password, and the device IP address. The thermometer creates a Wi‑Fi network named <strong>Thermoholder</strong> (the password is the same as the network name). Connect your computer or phone to that Wi‑Fi network. From any browser go to <code>http://192.168.4.1</code> to open the web interface. If the page looks incomplete, press Refresh in the browser.</p>
-													<div class="figure" style="margin-top:8px">
-														<img src="instruction_thermoholder/image6.png" alt="Illustration 5 — display showing SSID, password and IP" style="max-width:100%;height:auto;border-radius:8px">
-													</div>
-													<div class="figure" style="margin-top:8px">
-														<img src="instruction_thermoholder/image8.png" alt="Illustration 7 — web interface overview" style="max-width:100%;height:auto;border-radius:8px">
-													</div>
-											</div>
-										</details>
-
-										<details>
-											<summary>Web interface: what you'll see</summary>
-											<div class="muted">
-													<p>The web page displays the current temperature (labelled <em>Temperature</em>), the active recording name (<em>Recording</em>), a table with columns <em>Time</em> and <em>Temperature</em>, and a chart showing measurements over time.</p>
-													<div class="figure" style="margin-top:8px">
-														<img src="instruction_thermoholder/image10.png" alt="Illustration 9 — web interface chart and table" style="max-width:100%;height:auto;border-radius:8px">
-													</div>
-											</div>
-										</details>
-
-										<details>
-											<summary>Recording settings</summary>
-											<div class="muted">
-													<p><strong>Frequency</strong> — choose how often measurements are recorded for the selected recording. Note: the on‑screen display updates every second; Frequency affects table and chart entries only.</p>
-													<p><strong>Unit</strong> — select °C, °F, K or °R for the recording. Units can be changed only before the recording starts. The selected unit also affects the on‑screen display. After power cycle, the device uses the last chosen unit for the most recent recording.</p>
-													<p><strong>Min Y / Max Y</strong> — set the Y‑axis range for the chart and press <em>Set Y‑Axis</em> to apply.</p>
-													<div class="figure" style="margin-top:8px">
-														<img src="instruction_thermoholder/image11.png" alt="Illustration 10 — recording settings UI" style="max-width:100%;height:auto;border-radius:8px">
-													</div>
-											</div>
-										</details>
-
-										<details>
-											<summary>Recordings: start, pause, new, export</summary>
-											<div class="muted">
-													<p>The device creates an initial recording named <em>Recording 1</em>. To start logging measurements press <strong>Start</strong>; data points will be added according to the Frequency setting. To pause logging press <strong>Pause</strong>. Use <strong>New Recording</strong> to create additional recordings and <strong>Rename Recording</strong> to change a recording's name.</p>
-													<div class="figure" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-														<img src="instruction_thermoholder/image12.png" alt="Illustration 11 — starting a recording" style="max-width:48%;height:auto;border-radius:8px">
-														<img src="instruction_thermoholder/image13.png" alt="Illustration 12 — pausing a recording" style="max-width:48%;height:auto;border-radius:8px">
-													</div>
-													<p><strong>Export to CSV/Excel</strong> exports the currently selected recording to CSV format. Important: data is stored only in RAM on the device; when the thermometer is turned off or the page is refreshed, all data is lost. Export any data you want to keep before powering off or refreshing.</p>
-													<div class="figure" style="margin-top:8px">
-														<img src="instruction_thermoholder/image14.png" alt="Illustration 13 — export UI" style="max-width:100%;height:auto;border-radius:8px">
-													</div>
-													<div class="figure" style="margin-top:8px">
-														<img src="instruction_thermoholder/image15.png" alt="Illustration 14 — rename/new recording" style="max-width:100%;height:auto;border-radius:8px">
-													</div>
-											</div>
-										</details>
-
-										<details>
-											<summary>Comparing recordings</summary>
-											<div class="muted">
-												<p>To compare multiple recordings, check the boxes next to the recordings under <em>Select recordings</em>. Only recordings using the same temperature unit can be compared. Press <strong>Compare Selected Recordings</strong> to view the combined chart. While comparison is active, exit with <strong>ExitComparison</strong> to return to normal view.</p>
-											</div>
-										</details>
-
-										<details>
-											<summary>Safety & battery notes</summary>
-											<div class="muted">
-												<p>Thermoholder uses a rechargeable Li‑Po battery. Follow standard Li‑Po safety guidance: do not expose the battery to high temperatures; avoid short circuits and mechanical damage; use the provided charging method and a compatible charger; if the battery is swollen or damaged, stop using the device.</p>
-											</div>
-										</details>
-									</section>
-									END FAQ (commented out) -->
+					<div id="why" class="card">
+						<h3>Why choose Thermoholder?</h3>
+						<ul class="why-list">
+							<li>Optimized for learning — no special expertise required.</li>
+							<li>Good value for its feature set.</li>
+							<li>Friendly for students and hobbyists.</li>
+						</ul>
 					</div>
 				</section>
 
-				<aside>
-					<div id="specs" class="card widget" role="region" aria-label="Main specifications">
-						<div style="display:flex;align-items:center;justify-content:space-between;width:100%">
-							<div>
-												<div style="font-weight:700">Main specs</div>
-												<div class="muted">Key technical specifications and features</div>
-							</div>
-						</div>
-
-						<div style="height:14px"></div>
-
-						<dl class="specs" style="margin-top:12px;text-align:left;color:var(--muted)">
+				<aside class="sidebar">
+					<div id="specs" class="card">
+						<h4>Main specs</h4>
+						<p style="font-size:12px;color:var(--muted);margin:4px 0 12px;">Key technical specifications</p>
+						<dl class="specs-grid">
 							<div>
 								<dt>Range</dt>
-								<dd>-40 - 125 °C</dd>
+								<dd>-55 - 125 °C</dd>
 							</div>
 							<div>
 								<dt>Accuracy</dt>
@@ -233,19 +331,69 @@
 								<dd>Wi-Fi</dd>
 							</div>
 							<div>
-								<dt>Power / Charging</dt>
-								<dd>Micro USB (charges Li-Po battery)</dd>
+								<dt>Power</dt>
+								<dd>Micro USB (Li-Po)</dd>
 							</div>
 						</dl>
 					</div>
 
-					<div class="card" style="margin-top:12px">
-						<h4 id="cta">Pricing</h4>
-						<p class="muted">Student-friendly pricing.</p>
-						<div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
-							<div>
-								<div style="font-size:18px;font-weight:700">50€</div>
-								<div class="muted">one-time payment</div>
+					<div id="pricing" class="card">
+						<h4>Pricing</h4>
+						<p class="pricing-label">Student-friendly pricing.</p>
+						<span class="price">50€</span>
+						<span class="price-note">one-time payment</span>
+					</div>
+
+					<div id="features" class="card">
+						<div class="features-title">Features</div>
+						
+						<div class="feature">
+							<div class="feature-icon blue">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/></svg>
+							</div>
+							<div class="feature-content">
+								<h4>Wi-Fi connectivity</h4>
+								<p>Access temperature data from any device without complex configuration.</p>
+							</div>
+						</div>
+
+						<div class="feature">
+							<div class="feature-icon pink">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+							</div>
+							<div class="feature-content">
+								<h4>Simple UI</h4>
+								<p>A clean, easy interface tailored for beginners.</p>
+							</div>
+						</div>
+
+						<div class="feature">
+							<div class="feature-icon green">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg>
+							</div>
+							<div class="feature-content">
+								<h4>Accurate readings</h4>
+								<p>High-accuracy sensor suitable for classroom and hobby use.</p>
+							</div>
+						</div>
+
+						<div class="feature">
+							<div class="feature-icon orange">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+							</div>
+							<div class="feature-content">
+								<h4>Fast setup</h4>
+								<p>From box to working in minutes.</p>
+							</div>
+						</div>
+
+						<div class="feature">
+							<div class="feature-icon purple">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+							</div>
+							<div class="feature-content">
+								<h4>Eco-friendly</h4>
+								<p>Uses a rechargeable Li-Po battery to reduce disposable battery waste.</p>
 							</div>
 						</div>
 					</div>
@@ -253,8 +401,17 @@
 			</main>
 
 			<footer id="contact">
-				<div>© <strong>Thermoholder</strong> 2026 • Designed for beginners and students</div>
-				<div class="muted">Contact: <a href="mailto:smuplaceholder@gmail.com" style="color:inherit">smuplaceholder@gmail.com</a> • <a href="https://www.instagram.com/smuthermoholder/" target="_blank" rel="noopener" style="color:inherit">Instagram</a></div>
+				<div>© <strong style="color:var(--foreground)">Thermoholder</strong> 2026 • Designed for beginners and students</div>
+				<div class="footer-links">
+					<a href="mailto:smuplaceholder@gmail.com">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+						smuplaceholder@gmail.com
+					</a>
+					<a href="https://www.instagram.com/smuthermoholder/" target="_blank" rel="noopener">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+						Instagram
+					</a>
+				</div>
 			</footer>
 		</div>
 	</body>
